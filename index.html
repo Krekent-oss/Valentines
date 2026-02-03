@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Valentine 💖</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    max-width: 350px;
+    width: 90%;
+    position: relative;
+    z-index: 10;
+  }
+
+  img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #e63946;
+  }
+
+  h1 { color: #e63946; margin-bottom: 10px; }
+
+  p { margin-bottom: 20px; }
+
+  button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+    transition: 0.3s;
+  }
+
+  #yes { background: #e63946; color: white; }
+  #yes:hover { background: #d62839; }
+
+  #no { background: #adb5bd; color: black; position: relative; }
+</style>
+</head>
+<body>
+
+<div class="card" id="card">
+  <img src="Screenshot_20260201-221729.png" alt="Me">
+  <h1>Hey My Love ❤️</h1>
+  <p>Will you be my Valentine?</p>
+  <button id="yes" onclick="sayYes()">Yes 💕</button>
+  <button id="no" onmouseover="moveNo()">No 🙈</button>
+</div>
+
+<audio id="song">
+  <source src="Post Malone, The Weeknd - One Right Now.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Play song
+function playSong() {
+  document.getElementById("song").play();
+}
+
+// Yes button clicked
+function sayYes() {
+  playSong();
+  document.body.innerHTML = `
+    <div style="
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color:white;
+      text-align:center;
+      font-family: 'Segoe UI', sans-serif;">
+      <h1>That's why I chose you!! 💖🥰</h1>
+      <p>You just made me the happiest person alive 🌹<br>
+      Happy Valentine’s, my love!</p>
+    </div>
+  `;
+  startHearts();
+}
+
+// Move the "No" button randomly
+function moveNo() {
+  const noBtn = document.getElementById("no");
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 100 - 50;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+// Floating hearts animation
+function startHearts() {
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.innerHTML = '💖';
+    heart.style.position = 'fixed';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.top = window.innerHeight + 'px';
+    heart.style.fontSize = (10 + Math.random() * 20) + 'px';
+    heart.style.zIndex = 5;
+    document.body.appendChild(heart);
+
+    let top = window.innerHeight;
+    const fall = setInterval(() => {
+      top -= 2;
+      heart.style.top = top + 'px';
+      if(top < -50) {
+        heart.remove();
+        clearInterval(fall);
+      }
+    }, 20);
+  }, 300);
+}
+</script>
+
+</body>
+</html>
